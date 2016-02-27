@@ -63,7 +63,7 @@ startServer = (wifi) ->
 		dnsServer = spawn('named', ['-f'])
 		getIptablesRules (err, iptablesRules) ->
 			throw err if err?
-			iptables.appendManyAsync(iptablesRules)
+			iptables.prependManyAsync(iptablesRules)
 			.then ->
 				console.log('Captive portal enabled')
 				server = app.listen port, (err) ->

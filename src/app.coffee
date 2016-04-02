@@ -1,5 +1,5 @@
 Promise = require('bluebird')
-connman = Promise.promisifyAll(require('connman-simplified-resin')())
+connman = Promise.promisifyAll(require('connman-simplified')())
 express = require('express')
 app = express()
 bodyParser = require('body-parser')

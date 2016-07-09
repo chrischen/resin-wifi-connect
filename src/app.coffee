@@ -1,5 +1,5 @@
 Promise = require('bluebird')
-connman = Promise.promisifyAll(require('connman-simplified-resin')())
+connman = Promise.promisifyAll(require('connman-simplified')())
 express = require('express')
 app = express()
 bodyParser = require('body-parser')
@@ -63,7 +63,7 @@ startServer = (wifi) ->
 		dnsServer = spawn('named', ['-f'])
 		getIptablesRules (err, iptablesRules) ->
 			throw err if err?
-			iptables.appendManyAsync(iptablesRules)
+			iptables.prependManyAsync(iptablesRules)
 			.then ->
 				console.log('Captive portal enabled')
 				server = app.listen port, (err) ->

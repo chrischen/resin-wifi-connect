@@ -3,6 +3,9 @@ exec = require('child_process').exec
 
 iptables = {}
 
+iptables.prepend = (rule, cb) ->
+	exec("iptables -t #{rule.table} -I #{rule.rule}", cb)
+
 iptables.append = (rule, cb) ->
 	exec("iptables -t #{rule.table} -A #{rule.rule}", cb)
 
@@ -14,6 +17,9 @@ iptables.createChain = (table, chain, cb) ->
 
 iptables.flush = (table, chain, cb) ->
 	exec("iptables -t #{table} -F #{chain}", cb)
+
+iptables.prependMany = (rules, cb) ->
+	async.eachSeries rules, iptables.prepend, cb
 
 iptables.appendMany = (rules, cb) ->
 	async.eachSeries rules, iptables.append, cb
